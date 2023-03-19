@@ -200,6 +200,9 @@ components:
   schemas:
     ApiResponse:
       type: object
+      required:
+        - code
+        - message
       properties:
         code:
           type: integer
@@ -210,6 +213,9 @@ components:
           
     User:
       type: object
+      required:
+        - id
+        - role
       properties:
         id:
           type: integer
@@ -223,6 +229,9 @@ components:
   
     Category:
       type: object
+      required:
+        - id
+        - name
       properties:
         id:
           type: integer
@@ -233,6 +242,11 @@ components:
       
     Product:
       type: object
+      required:
+        - id
+        - category_id
+        - name
+        - price
       properties:
         id:
           type: integer
@@ -259,6 +273,10 @@ components:
     
     Option:
       type: object
+      required:
+        - id
+        - name
+        - properties
       properties:
         id:
           type: integer
@@ -281,6 +299,10 @@ components:
     
     ShoppingCartItem:
       type: object
+      required:
+        - id
+        - product_id
+        - option_id
       properties:
         id:
           type: integer
@@ -297,6 +319,12 @@ components:
     
     CartOrder:
       type: object
+      required:
+        - id
+        - user_id
+        - item_id
+        - total_price
+        - status
       properties:
         id:
           type: integer
