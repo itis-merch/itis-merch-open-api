@@ -1,4 +1,8 @@
 # Category
+
+## Description
+Представление категории товара на площадке. На данный момент связь между категорией и товаром будет иметь вид oneToMany.
+
 ## Properties
 
 | Name | Type | Description | Notes |

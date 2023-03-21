@@ -1,12 +1,8 @@
-# Документация Itis.Merch OpenAPI спецификация
+# Itis.Merch OpenAPI спецификация
 
-![](https://img.shields.io/badge/api-v0.0.1-green?style=flat-square)
+<a name="documentation-for-api-endpoints"></a>
+## API Endpoints 
 
-Это документация к Itis Merch OpenAPI. Пока она еще находится в разработке и с точки зрения проектирования, и с точки зрения документации.
-
-На данный момент вся документация генерируется с помощью [openapi-generator](https://github.com/OpenAPITools/openapi-generator/tree/master).
-
-All URIs are relative to *http://localhost:8080/api/v1*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
@@ -30,9 +26,3 @@ All URIs are relative to *http://localhost:8080/api/v1*
  - [Product](./Models/Product.md)
  - [ShoppingCartItem](./Models/ShoppingCartItem.md)
  - [User](./Models/User.md)
-
-
-<a name="documentation-for-authorization"></a>
-## Documentation for Authorization
-
-All endpoints do not require authorization.
