@@ -12,7 +12,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
 
 <a name="createCategory"></a>
 # **createCategory**
-> ApiResponse createCategory(Category)
+> ApiResponse createCategory(CategoryDTO)
 
 Метод создания новой категории.
 
@@ -22,7 +22,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **Category** | [**Category**](../Models/Category.md)|  | |
+| **CategoryDTO** | [**CategoryDTO**](../Models/CategoryDTO.md)|  | |
 
 ### Return type
 
@@ -50,7 +50,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List**](../Models/Category.md)
+[**List**](../Models/CategoryDTO.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ No authorization required
 
 <a name="getCategoryById"></a>
 # **getCategoryById**
-> Category getCategoryById(category\_id)
+> CategoryDTO getCategoryById(category\_id)
 
 Метод получения категории по идентификатору.
 
@@ -77,7 +77,7 @@ No authorization required
 
 ### Return type
 
-[**Category**](../Models/Category.md)
+[**CategoryDTO**](../Models/CategoryDTO.md)
 
 ### Authorization
 
@@ -90,7 +90,7 @@ No authorization required
 
 <a name="updateCategoryById"></a>
 # **updateCategoryById**
-> ApiResponse updateCategoryById(category\_id, Category)
+> ApiResponse updateCategoryById(category\_id, CategoryDTO)
 
 Метод изменения / обновления существующей категории.
 
@@ -101,7 +101,7 @@ No authorization required
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **category\_id** | **Integer**| Идентификатор категории | [default to null] |
-| **Category** | [**Category**](../Models/Category.md)|  | |
+| **CategoryDTO** | [**CategoryDTO**](../Models/CategoryDTO.md)|  | |
 
 ### Return type
 

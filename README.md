@@ -1,8 +1,9 @@
-# Itis.Merch OpenAPI спецификация
+# Documentation for Itis.Merch OpenAPI спецификация
 
 <a name="documentation-for-api-endpoints"></a>
-## API Endpoints 
+## Documentation for API Endpoints
 
+All URIs are relative to *http://localhost:8080/api/v1*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
@@ -20,9 +21,11 @@
 ## Documentation for Models
 
  - [ApiResponse](./Models/ApiResponse.md)
- - [CartOrder](./Models/CartOrder.md)
- - [Category](./Models/Category.md)
- - [Option](./Models/Option.md)
- - [Product](./Models/Product.md)
- - [ShoppingCartItem](./Models/ShoppingCartItem.md)
- - [User](./Models/User.md)
+ - [CategoryDTO](./Models/CategoryDTO.md)
+ - [ProductDTO](./Models/ProductDTO.md)
+
+
+<a name="documentation-for-authorization"></a>
+## Documentation for Authorization
+
+All endpoints do not require authorization.

@@ -2,10 +2,6 @@
 Apis/CategoriesApi.md
 Apis/ProductsApi.md
 Models/ApiResponse.md
-Models/CartOrder.md
-Models/Category.md
-Models/Option.md
-Models/Product.md
-Models/ShoppingCartItem.md
-Models/User.md
+Models/CategoryDTO.md
+Models/ProductDTO.md
 README.md

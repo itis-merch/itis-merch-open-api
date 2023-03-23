@@ -12,7 +12,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
 
 <a name="createProduct"></a>
 # **createProduct**
-> ApiResponse createProduct(Product)
+> ApiResponse createProduct(ProductDTO)
 
 Метод создания нового продукта.
 
@@ -22,7 +22,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **Product** | [**Product**](../Models/Product.md)|  | |
+| **ProductDTO** | [**ProductDTO**](../Models/ProductDTO.md)|  | |
 
 ### Return type
 
@@ -39,7 +39,7 @@ No authorization required
 
 <a name="getProductById"></a>
 # **getProductById**
-> Product getProductById(product\_id)
+> ProductDTO getProductById(product\_id)
 
 Метод получения продукта по идентификатору.
 
@@ -53,7 +53,7 @@ No authorization required
 
 ### Return type
 
-[**Product**](../Models/Product.md)
+[**ProductDTO**](../Models/ProductDTO.md)
 
 ### Authorization
 
@@ -77,7 +77,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List**](../Models/Product.md)
+[**List**](../Models/ProductDTO.md)
 
 ### Authorization
 
@@ -90,7 +90,7 @@ No authorization required
 
 <a name="updateProductById"></a>
 # **updateProductById**
-> ApiResponse updateProductById(product\_id, Product)
+> ApiResponse updateProductById(product\_id, ProductDTO)
 
 Метод изменения / обновления существующего продукта.
 
@@ -101,7 +101,7 @@ No authorization required
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **product\_id** | **Integer**| Идентификатор продукта | [default to null] |
-| **Product** | [**Product**](../Models/Product.md)|  | |
+| **ProductDTO** | [**ProductDTO**](../Models/ProductDTO.md)|  | |
 
 ### Return type
 
