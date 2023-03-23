@@ -28,7 +28,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Product"
+                  $ref: "#/components/schemas/ProductDTO"
     post:
       summary: Метод создания нового продукта.
       description: |-
@@ -41,7 +41,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: "#/components/schemas/ProductDTO"
       responses:
         '200':
           description: Успешное создание продукта.
@@ -73,7 +73,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/ProductDTO"
                 
     post:
       summary: Метод изменения / обновления существующего продукта.
@@ -95,7 +95,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: "#/components/schemas/ProductDTO"
       responses:
         '200':
           description: Успешное обновление продукта.
@@ -120,7 +120,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Category"
+                  $ref: "#/components/schemas/CategoryDTO"
     post:
       summary: Метод создания новой категории.
       description: |-
@@ -133,7 +133,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Category"
+              $ref: "#/components/schemas/CategoryDTO"
       responses:
         '200':
           description: Успешное создание категории
@@ -164,7 +164,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Category"
+                $ref: "#/components/schemas/CategoryDTO"
                 
     post:
       summary: Метод изменения / обновления существующей категории.
@@ -186,7 +186,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Category"
+              $ref: "#/components/schemas/CategoryDTO"
       responses:
         '200':
           description: Успешное обновление категории.
@@ -212,26 +212,8 @@ components:
         message:
           type: string
           example: "Successfully created a new product."
-          
-    User:
-      description: |-
-        Этот класс представляет из себя, как не трудно догадаться, пользователя. Поскольку у нас не будет регистрации как таковой, а лишь авторизация через KPFU API, то эта модель будет иметь минимум полей.
-      type: object
-      required:
-        - id
-        - role
-      properties:
-        id:
-          type: integer
-          example: 1
-        role:
-          type: string
-          enum:
-            - CLIENT
-            - ADMIN
-          example: "ADMIN"
   
-    Category:
+    CategoryDTO:
       description: |-
         Представление категории товара на площадке. На данный момент связь между категорией и товаром будет иметь вид oneToMany.
       type: object
@@ -246,7 +228,7 @@ components:
           type: string
           example: "Свитшоты"
       
-    Product:
+    ProductDTO:
       description: |-
         Представляет из себя продукт в "чистом виде", то есть тот продукт, который размещен на площадке. У него еще нет конфигурации и количества, в котором он будет куплен.
       type: object
@@ -254,6 +236,9 @@ components:
         - id
         - category_id
         - name
+        - description
+        - image_url
+        - quantity
         - price
       properties:
         id:
@@ -278,87 +263,3 @@ components:
         price:
           type: number
           example: 9990
-    
-    Option:
-      description: |-
-        Опция / вариация товара, например, у какого-нибудь худи может быть размер XL, L, M, S и так далее. Можно заметить, что одно из полей этой модели имеет тип json. Туда и будут скинуты все вариации и выборы.
-      type: object
-      required:
-        - id
-        - name
-        - properties
-      properties:
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: "Размер"
-        properties:
-          type: string
-          example: |-
-            {
-              "values": [
-                "XL",
-                "L",
-                "M",
-                "S"
-              ],
-              "selected": "L"
-            }
-    
-    ShoppingCartItem:
-      description: |-
-        Так будет выглядить товар, который пользователь уже добавил в свою корзину. Он может выбрать количество товара в корзине и его конфигурацию.
-      type: object
-      required:
-        - id
-        - product_id
-        - option_id
-      properties:
-        id:
-          type: integer
-          example: 1
-        product_id:
-          type: integer
-          example: 1
-        option_id:
-          type: integer
-          example: 1
-        quantity:
-          type: integer
-          example: 2
-    
-    CartOrder:
-      description: |-
-        Модель корзина-заказ. У каждого пользователя может быть только одна такая модель, помеченная как корзина. После оформления заказа модель меняет свой статус и становится заказом. В этот момент создается новая сущность cart_order, помеченная как корзина.
-      type: object
-      required:
-        - id
-        - user_id
-        - item_id
-        - total_price
-        - status
-      properties:
-        id:
-          type: integer
-          example: 1
-        user_id:
-          type: integer
-          example: 1
-        item_id:
-          type: integer
-          example: 1
-        total_price:
-          type: number
-          example: 30990
-        status:
-          type: string
-          enum:
-            - CART
-            - PENDING
-            - PAYED
-            - CLOSED
-          example: "PENDING"
-
-
