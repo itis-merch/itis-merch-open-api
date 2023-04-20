@@ -36,6 +36,8 @@ paths:
       tags:
        - Products
       operationId: createProduct
+      security:
+        - BearerAuth: [ADMIN]
       requestBody:
         required: true
         content:
@@ -82,6 +84,8 @@ paths:
       tags:
        - Products
       operationId: updateProductById
+      security:
+        - BearerAuth: [ADMIN]
       parameters:
         - name: product_id
           in: path
@@ -128,6 +132,8 @@ paths:
       tags:
        - Categories
       operationId: createCategory
+      security:
+        - BearerAuth: [ADMIN]
       requestBody:
         required: true
         content:
@@ -169,10 +175,12 @@ paths:
     post:
       summary: Метод изменения / обновления существующей категории.
       description: |-
-        Обновляет существующую категорию по ее идентификатору, меняф некоторые ее свойства.
+        Обновляет существующую категорию по ее идентификатору, меняя некоторые ее свойства.
       tags:
        - Categories
       operationId: updateCategoryById
+      security:
+        - BearerAuth: [ADMIN]
       parameters:
         - name: category_id
           in: path
@@ -194,9 +202,50 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
-
-
+  /auth/register:
+    post:
+      summary: Метод регистрации пользователя.
+      description: |-
+        Регистрирует пользователя и возвращает объект ApiResponse в случае успешной регистрации. В противном случае, вернет этот же объект с ошибкой.
+      tags:
+        - Authorization
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegistrationRequestDTO"
+      responses:
+        '202':
+          description: Пользователь был успешно зарегестрирован.
+        '409':
+          description: Пользователь с таким адресом электронной почты уже зарегестрирован.
+  /auth/login:
+    post:
+      summary: Метод авторизации пользователя на сайте.
+      description: |-
+        Авторизует пользователя на сайте и в случае успешной авторизации позвращает объект AuthenticationResponseDTO, содержащий адрес электронной почты, только что авторизовавшегося пользователя, и только что сгенерированный JWT токен для его дальнейшейго использования на защищенных эндпоинтах.
+      tags:
+        - Authorization
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequestDTO"
+      responses:
+        '202':
+          description: Успешная авторизация.
+        '400':
+          description: Были переданы неверные данные для входа.
+      
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
   schemas:
     ApiResponse:
       description: |-
@@ -263,3 +312,57 @@ components:
         price:
           type: number
           example: 9990
+    
+    AuthenticationResponseDTO:
+      description: |-
+        DTO объект, возвращаемый API в случае успешной авторизации на сайте. Для этого необходимо на защищенный авторизацией ресурс совершить запрос, передав в headers поле Authorization. Это поле должно содержать JWT токен в формате Authorization: Bearer {token}.
+      type: object
+      required:
+        - email_address
+        - jwt_token
+      properties:
+        email_address:
+          type: string
+          example: ivanivanov@gmail.com
+        jwt_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpdmFuaXZhbm92QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTUxNjIzOTAyMn0.PaMDkwFItSRQW8OmqIuPIlvhCqNRgE_Czgh8X6AVmjU
+
+    RegistrationRequestDTO:
+      description: |-
+        Данный DTO объект представляет из себя данные для регистрации, которые передаются в тело запроса на эндпоинт /auth/register.
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email_address
+        - password
+      properties:
+        first_name:
+          type: string
+          example: Ivan
+        last_name:
+          type: string
+          example: Ivanov
+        email_address:
+          type: string
+          example: ivanivanov@gmail.com
+        password:
+          type: string
+          example: supersecretpassword
+    
+    LoginRequestDTO:
+      description: |-
+        DTO, которое подается на вход во время POST запроса по эндпоинту /auth/login.
+      type: object
+      required:
+        - email_address
+        - password
+      properties:
+        email_address:
+          type: string
+          example: ivanivanov@gmail.com
+        password:
+          type: string
+          example: supersecretpassword
+      
