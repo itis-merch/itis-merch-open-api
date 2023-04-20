@@ -240,7 +240,42 @@ paths:
           description: Успешная авторизация.
         '400':
           description: Были переданы неверные данные для входа.
-      
+  /cart/add:
+    post:
+      summary: Метод добавления товара в корзину.
+      description: |-
+        Добавляет продукт в корзину. Если корзина еще не создана (то есть пользователь только зарегистрировался), то создается новый CartOrder с полем status равным CART.
+      tags:
+        - Cart
+      operationId: addToCart
+      security:
+        - BearerAuth: [USER, ADMIN]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShoppingCartItemDTO"
+      responses:
+        '200':
+          description: Товар был успешно добавлен в корзину.
+        '400':
+          description: Такого товара на самом деле не существует, или не существует такой опции, или этот товар просто закончился.
+  
+  /cart/order:
+    post:
+      summary: Метод оформления заказа.
+      description: |-
+        Оформляет заказ, что означает смену статуса текущей корзины на PENDING.
+      tags:
+        - Cart
+      operationId: makeOrder
+      security:
+        - BearerAuth: [USER, ADMIN]
+      responses:
+        '200':
+          description: Заказ был успешно оформлен.
+
 components:
   securitySchemes:
     BearerAuth:
@@ -369,3 +404,80 @@ components:
           type: string
           example: supersecretpassword
     
+    ShoppingCartItemDTO:
+      description: |-
+        Данный DTO отображает товар, находящийся в корзине / заказе пользователя.
+      type: object
+      required:
+        - id
+        - category_id
+        - name
+        - description
+        - quantity
+        - price
+        - options
+      properties:
+        id:
+          type: integer
+          example: 1
+        category_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'Свитшот "Computer Angel"'
+        description:
+          type: string
+          example: |-
+            Свитшот изготовлен из хлопка, что делает одежду дышащей, прочной, хорошо держащей форму и легко очищаемой от загрязнений. В качестве материала используется футер с начесом, который очень теплый, удобный и тактильно приятен для тела. Эта толстовка с принтом подойдет для использования дома, на тренировках, в тренажерном зале, танцах, фитнесе, для офиса или просто в путешествиях. Данное худи можно сочетать практически с любыми вещами, будь то джинсы и кеды, или брюки и ботинки.
+        image_urls:
+          type: array
+          items:
+            type: object
+            properties:
+              image_url:
+                type: string
+        quantity:
+          type: integer
+          example: 1
+        price:
+          type: number
+          example: 9990
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              options:
+                type: array
+                items:
+                  type: string
+                  description: "Здесь произвольно в виде JSON будут передаваться настройки."
+    CartOrderDTO:
+      description: |-
+        DTO, представляющее из себя корзину или заказ пользователя. Как это работает?
+        Недавно зарегистрированный пользователь впервые добавляет товар с настройками в корзину. В этот момент к User привязывается CartOrder, с массивом, который содержит добавленный товар, и статусом равным CART.
+        Пользователь может добавлять товары в эту корзину дальше. В момент формирования заказа данный объект меняет свой статус на PENDING и у User появляется новый CartOrder. 
+      type: object
+      required:
+        - items
+        - total_price
+        - phone_number
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            $ref: "#/components/schemas/ShoppingCartItemDTO"
+        total_price:
+          type: number
+          example: 9990.90
+        phone_number:
+          type: string
+          example: "+79221234567"
+        status:
+          type: string
+          example: "CART"
+        
