@@ -286,7 +286,6 @@ components:
         - category_id
         - name
         - description
-        - image_url
         - quantity
         - price
       properties:
@@ -303,9 +302,13 @@ components:
           type: string
           example: |-
             Свитшот изготовлен из хлопка, что делает одежду дышащей, прочной, хорошо держащей форму и легко очищаемой от загрязнений. В качестве материала используется футер с начесом, который очень теплый, удобный и тактильно приятен для тела. Эта толстовка с принтом подойдет для использования дома, на тренировках, в тренажерном зале, танцах, фитнесе, для офиса или просто в путешествиях. Данное худи можно сочетать практически с любыми вещами, будь то джинсы и кеды, или брюки и ботинки.
-        image_url:
-          type: string
-          example: https://ke-images.servicecdn.ru/c9mj57oknio7ari6gleg/original.jpg
+        image_urls:
+          type: array
+          items:
+            type: object
+            properties:
+              image_url:
+                type: string
         quantity:
           type: integer
           example: 20
@@ -365,4 +368,4 @@ components:
         password:
           type: string
           example: supersecretpassword
-      
+    
